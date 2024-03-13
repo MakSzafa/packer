@@ -1,7 +1,9 @@
 <template>
-    <v-app>
-      <!-- <AppHeader /> -->
+  <v-app class="d-flex">
+    <AppHeader />
+    <v-main>
       <slot />
-      <!-- <AppFooter /> -->
-    </v-app>
-  </template>
+    </v-main>
+    <AppFooter />
+  </v-app>
+</template>
