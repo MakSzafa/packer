@@ -14,7 +14,10 @@
                 density="compact" 
                 style="width: 80px" 
                 type="number"
-                variant="outlined">
+                color="primary"
+                maxlength="5"
+                variant="outlined"
+                @update:model-value="emitSliderValue">
                 </v-text-field>
             </template>
         </v-slider>
