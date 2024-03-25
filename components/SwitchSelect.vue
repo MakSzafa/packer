@@ -1,13 +1,22 @@
 <template>
     <v-card class="ma-2" :title="title">
-        <v-switch 
-        v-model="switchValue" 
-        color="primary" 
-        false-value="Nie"
-        true-value="Tak"
-        @update:model-value="emitSwitchValue">
+        <v-switch v-model="switchValue" color="primary" false-value="Nie" true-value="Tak"
+            @update:model-value="emitSwitchValue">
         </v-switch>
-        <v-combobox v-if="switchValue === 'Tak'"
+        <v-chip-group v-if="switchValue === 'Tak'" 
+            column 
+            multiple 
+            color="primary" 
+            v-model="selectChipsValue"
+            @update:model-value="emitSelectedChipsValue">
+            <v-chip v-for="chip in chips" 
+            :key="chip.id" 
+            :value="chip.name" 
+            class="mx-3">
+                {{ chip.name }}
+            </v-chip>
+        </v-chip-group>
+        <!-- <v-select v-if="switchValue === 'Tak'"
         v-model="selectValue"
         clearable
         chips
@@ -17,7 +26,7 @@
         label="Wybierz"
         :items="items"
         @update:model-value="emitSelectValue">
-        </v-combobox>
+        </v-select> -->
     </v-card>
 </template>
 
@@ -29,14 +38,14 @@ const props = defineProps({
         type: String,
         required: true,
     },
-    items: {
+    chips: {
         type: Array,
         required: true,
     }
 })
 
 const switchValue = ref(false);
-const selectValue = ref([])
+const selectChipsValue = ref([])
 
 const emit = defineEmits(['switchValueUpdated', 'selectValueUpdated'])
 
@@ -45,7 +54,7 @@ const emitSwitchValue = () => {
     if (switchValue.value === 'Nie') emit('selectValueUpdated', [])
 }
 
-const emitSelectValue = () => {
-    emit('selectValueUpdated', selectValue.value)
+const emitSelectedChipsValue = () => {
+    emit('selectValueUpdated', selectChipsValue.value)
 }
 </script>
